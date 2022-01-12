@@ -1,11 +1,14 @@
 package breakout;
 
+import javafx.animation.KeyFrame;
+import javafx.animation.Timeline;
 import javafx.application.Application;
 import javafx.scene.Group;
 import javafx.scene.Scene;
 import javafx.scene.paint.Color;
 import javafx.stage.Stage;
 import javafx.scene.shape.Circle;
+import javafx.util.Duration;
 
 
 /**
@@ -15,9 +18,8 @@ import javafx.scene.shape.Circle;
  */
 public class Main extends Application {
     // useful names for constant values used
-    public static final String TITLE = "Example JavaFX Animation";
+    public static final String TITLE = "Breakout Beta";
     public static final int SIZE = 400;
-
 
     /**
      * Initialize what will be displayed.
@@ -35,5 +37,12 @@ public class Main extends Application {
 
         stage.setTitle(TITLE);
         stage.show();
+
+/*
+        Timeline animation = new Timeline();
+        animation.setCycleCount(Timeline.INDEFINITE);
+        animation.getKeyFrames().add(new KeyFrame(Duration.seconds(3), e -> myGame.step(3)));
+        animation.play();
+*/
     }
 }
