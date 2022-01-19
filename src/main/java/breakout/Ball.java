@@ -5,45 +5,39 @@ import javafx.scene.shape.Circle;
 
 public class Ball {
 
-  public Circle ball_circle;
-  private int radius = 12;
   public static double BOUNCER_x_SPEED = 350;
   public static double BOUNCER_y_SPEED = 350;
   public static double centerX = Main.SIZE * 0.5;
   public static double centerY = Main.SIZE * 0.35;
+  public Circle ball_circle;
+  private final int radius = 12;
 
 
   public Ball(double centerX, double centerY) {
     ball_circle = new Circle(centerX, centerY, radius);
-      ball_circle.setFill(Color.ROYALBLUE);
+    ball_circle.setFill(Color.ROYALBLUE);
 
   }
 
 
-  public void resetBall(){
+  public void resetBall() {
     ball_circle.setCenterX(centerX);
     ball_circle.setCenterY(centerY);
   }
 
-  public void move(double elapsedTime){
+  public void move(double elapsedTime) {
     ball_circle.setCenterX(ball_circle.getCenterX() + Ball.BOUNCER_x_SPEED * elapsedTime);
     ball_circle.setCenterY(ball_circle.getCenterY() + Ball.BOUNCER_y_SPEED * elapsedTime);
   }
 
   public Boolean touchesPaddleY() {
-    if (ball_circle.getCenterY() + ball_circle.getRadius() >= Paddle.paddle_rect.getY()) {
-      return true;
-    }
-    return false;
+    return ball_circle.getCenterY() + ball_circle.getRadius() >= Paddle.paddle_rect.getY();
   }
 
   public Boolean touchesPaddleX() {
-    if (ball_circle.getCenterX() - ball_circle.getRadius()
+    return ball_circle.getCenterX() - ball_circle.getRadius()
         <= Paddle.paddle_rect.getX() + Paddle.width
-        && ball_circle.getCenterX() + ball_circle.getRadius() >= Paddle.paddle_rect.getX()) {
-      return true;
-    }
-    return false;
+        && ball_circle.getCenterX() + ball_circle.getRadius() >= Paddle.paddle_rect.getX();
   }
 
   public Boolean touchesPaddle() {
@@ -75,9 +69,9 @@ public class Ball {
     return false;
   }
 
-  public Boolean touchesLeftPaddle(){
-    if (touchesPaddle()){
-      if (ball_circle.getCenterX() <= Paddle.paddle_rect.getX()+Paddle.width / 3){
+  public Boolean touchesLeftPaddle() {
+    if (touchesPaddle()) {
+      if (ball_circle.getCenterX() <= Paddle.paddle_rect.getX() + Paddle.width / 3) {
         System.out.println("touches left");
         return true;
       }
@@ -85,9 +79,9 @@ public class Ball {
     return false;
   }
 
-  public Boolean touchesRightPaddle(){
-    if (touchesPaddle()){
-      if(ball_circle.getCenterX() >= Paddle.paddle_rect.getX()+2*Paddle.width / 3){
+  public Boolean touchesRightPaddle() {
+    if (touchesPaddle()) {
+      if (ball_circle.getCenterX() >= Paddle.paddle_rect.getX() + 2 * Paddle.width / 3) {
         System.out.println("touches right");
         return true;
       }
@@ -96,11 +90,8 @@ public class Ball {
   }
 
   public boolean touchesWall() {
-    if (ball_circle.getCenterX() - ball_circle.getRadius() <= 0
-        || ball_circle.getCenterX() + ball_circle.getRadius() >= Main.SIZE) {
-      return true;
-    }
-    return false;
+    return ball_circle.getCenterX() - ball_circle.getRadius() <= 0
+        || ball_circle.getCenterX() + ball_circle.getRadius() >= Main.SIZE;
   }
 
   public void bounce() {
@@ -110,18 +101,17 @@ public class Ball {
     if (touchesWall()) {
       BOUNCER_x_SPEED = -BOUNCER_x_SPEED;
     }
-    if (touchesBottom()){
+    if (touchesBottom()) {
       BOUNCER_x_SPEED = 0;
       BOUNCER_y_SPEED = 0;
     }
 
-    if (touchesRightPaddle()){
-      BOUNCER_x_SPEED -= BOUNCER_x_SPEED*0.350;
+    if (touchesRightPaddle()) {
+      BOUNCER_x_SPEED -= BOUNCER_x_SPEED * 0.350;
     }
 
-
-    if (touchesLeftPaddle()){
-      BOUNCER_x_SPEED += BOUNCER_x_SPEED*0.35;
+    if (touchesLeftPaddle()) {
+      BOUNCER_x_SPEED += BOUNCER_x_SPEED * 0.35;
     }
   }
 }
